@@ -1,5 +1,6 @@
 import pandas as pd
 df = pd.read_csv("House_Prices.csv")
+df.columns = df.columns.astype(str).str.strip()
 print("Original Dataset:")
 print(df.head())
 print("Dataset Shape:")
@@ -22,6 +23,14 @@ print(df.duplicated().sum())
 df = df.drop_duplicates()
 print("Duplicate Rows After Processing:")
 print(df.duplicated().sum())
+
+address_columns=[
+    column for column in df.columns
+    if column.strip().lower()=="address"
+]
+if address_columns:
+    df=df.drop(columns=address_columns)
+
 
 categorical_columns = df.select_dtypes(include=["object", "category", "string"]).columns
 print("Categorical Features:")
