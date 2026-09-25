@@ -18,11 +18,7 @@ for column in categorical_columns:
 print("Missing Values After Processing:")
 print(df.isnull().sum())
 
-print("Duplicate Rows Before Processing:")
-print(df.duplicated().sum())
-df = df.drop_duplicates()
-print("Duplicate Rows After Processing:")
-print(df.duplicated().sum())
+
 
 address_columns=[
     column for column in df.columns
@@ -30,6 +26,12 @@ address_columns=[
 ]
 if address_columns:
     df=df.drop(columns=address_columns)
+
+print("Duplicate Rows Before Processing:")
+print(df.duplicated().sum())
+df = df.drop_duplicates()
+print("Duplicate Rows After Processing:")
+print(df.duplicated().sum())
 
 
 categorical_columns = df.select_dtypes(include=["object", "category", "string"]).columns
